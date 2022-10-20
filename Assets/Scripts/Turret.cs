@@ -67,7 +67,7 @@ public class Turret : MonoBehaviour
                 float angle = Vector3.Angle(targetDir, defaultDirection);
                
 
-                Debug.Log(angle);
+                //Debug.Log(angle);
                 if ((Vector3.Distance(transform.position, target.transform.position) > 10f) || (angle > 90))
                 {
                     targetDirection = Vector3.forward;

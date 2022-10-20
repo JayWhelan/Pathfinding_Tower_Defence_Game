@@ -366,6 +366,7 @@
 "Assets/Scripts/Spawner.cs"
 "Assets/Scripts/Turret.cs"
 "Assets/Scripts/TurretHolder.cs"
+"Assets/Scripts/TurretManager.cs"
 -langversion:9.0
 
 /deterministic

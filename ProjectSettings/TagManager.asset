@@ -13,6 +13,7 @@ TagManager:
   - pathfind3
   - pathfind4
   - turretholder
+  - turret
   layers:
   - Default
   - TransparentFX
