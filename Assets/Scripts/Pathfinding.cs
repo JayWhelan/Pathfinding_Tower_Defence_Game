@@ -7,26 +7,51 @@ public class Pathfinding : MonoBehaviour
 
 	public Transform seeker, target;
 	GridManager grid;
+	Node startNode;
+	Node targetNode;
+	Node nextNode;
+	List<Node> openSet;
+	HashSet<Node> closedSet;
+	List<Node> path;
+	public int gridMan = 1;
+
 
 	void Awake()
 	{
-		grid = GetComponent<GridManager>();
+		GameObject tmp = GameObject.FindGameObjectWithTag("pathfind"+ gridMan);
+		grid = tmp.GetComponent<GridManager>();
+		
 	}
 
 	void Update()
 	{
-		FindPath(seeker.position, target.position);
+		//FindPath(seeker.position, target.position);
+
 	}
 
-	void FindPath(Vector3 startPos, Vector3 targetPos)
+    private void FixedUpdate()
+    {
+		/*
+		if (path != null && path[0] != null)
+		{
+			Node curr = path[0];
+			Debug.Log(curr.worldPosition);
+			seeker.position = Vector3.MoveTowards(seeker.position, curr.worldPosition, 0.1f);
+		}
+		*/
+	}
+
+	
+
+	public List<Node> FindPath(Vector3 startPos, Vector3 targetPos)
 	{
 		Node startNode = grid.NodeFromWorldPoint(startPos);
 		Node targetNode = grid.NodeFromWorldPoint(targetPos);
+		List<Node> targetNodes = new List<Node>();
 
 		List<Node> openSet = new List<Node>();
 		HashSet<Node> closedSet = new HashSet<Node>();
 		openSet.Add(startNode);
-
 		while (openSet.Count > 0)
 		{
 			Node node = openSet[0];
@@ -44,8 +69,8 @@ public class Pathfinding : MonoBehaviour
 
 			if (node == targetNode)
 			{
-				RetracePath(startNode, targetNode);
-				return;
+				targetNodes = RetracePath(startNode, targetNode);
+				return targetNodes; 
 			}
 
 			foreach (Node neighbour in grid.GetNeighbours(node))
@@ -55,7 +80,7 @@ public class Pathfinding : MonoBehaviour
 					continue;
 				}
 
-				int newCostToNeighbour = node.gCost + GetDistance(node, neighbour);
+				int newCostToNeighbour = node.gCost + GetDistance(node, neighbour) + node.jCost;
 				if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
 				{
 					neighbour.gCost = newCostToNeighbour;
@@ -67,11 +92,12 @@ public class Pathfinding : MonoBehaviour
 				}
 			}
 		}
+		return null;
 	}
-
-	void RetracePath(Node startNode, Node endNode)
+	
+	List<Node> RetracePath(Node startNode, Node endNode)
 	{
-		List<Node> path = new List<Node>();
+		path = new List<Node>();
 		Node currentNode = endNode;
 
 		while (currentNode != startNode)
@@ -82,8 +108,14 @@ public class Pathfinding : MonoBehaviour
 		path.Reverse();
 
 		grid.path = path;
-
+		return path;
 	}
+
+	public List<Node> getNeighbourNodes(Node n)
+    {
+		if (n != null) return grid.GetNeighbours(n);
+		return null;
+    }
 
 	int GetDistance(Node nodeA, Node nodeB)
 	{
@@ -94,4 +126,10 @@ public class Pathfinding : MonoBehaviour
 			return 14 * dstY + 10 * (dstX - dstY);
 		return 14 * dstX + 10 * (dstY - dstX);
 	}
+
+   public void addHitOnWorldPoint(Vector3 positionHit)
+    {
+
+    }
+
 }

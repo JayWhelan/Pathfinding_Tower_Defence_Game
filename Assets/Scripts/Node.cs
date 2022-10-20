@@ -12,7 +12,10 @@ public class Node
 	public int gCost;
 	public int hCost;
 	public int dCost;
+	public int jCost; //damage cost
 	public Node parent;
+	public int DamageAmount =200;
+	public int DamageSecondary = 100;
 
 	public Node(bool _walkable, Vector3 _worldPos, int _gridX, int _gridY)
 	{
@@ -27,7 +30,27 @@ public class Node
 	{
 		get
 		{
-			return gCost + hCost + dCost;
+			return gCost + hCost + dCost + jCost;
 		}
 	}
+
+	public void addHit()
+    {
+		
+		jCost += DamageAmount;
+		//Debug.Log(jCost);
+	}
+
+	public void addHit(int Damage)
+	{
+		jCost += Damage;
+	}
+
+	public void addSecondaryHit()
+	{
+		//Debug.Log("HITTING");
+		jCost += DamageSecondary;
+	}
+
+
 }
