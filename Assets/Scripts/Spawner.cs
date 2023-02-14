@@ -6,21 +6,16 @@ public class Spawner : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    public GameObject[] enemies;
+    public int currEnemy = 0;
     public GameObject enemy;
     public Transform spawnPoint;
-    public float spawnTime;
+    public GameLoop gameLoop;
     
 
     void Start()
     {
-       // InvokeRepeating("spawnAgain", 1.0f, spawnTime);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameLoop = GameObject.FindGameObjectWithTag("aStar").GetComponent<GameLoop>();
     }
 
     public IEnumerator spawnWave(int numEnemies, int pause)
@@ -32,6 +27,8 @@ public class Spawner : MonoBehaviour
             yield return new WaitForSeconds(pause);
 
         }
+        gameLoop.levelComplete();
+
     }
 
     public IEnumerator spawnWaveRec(int numEnemies, int pause, int numWaves, int pauseWave)
@@ -49,11 +46,22 @@ public class Spawner : MonoBehaviour
         }
     }
 
-
+    public void increaseEnemy()
+    {
+        if (enemies.Length > currEnemy)
+        {
+            currEnemy++;
+        }
+        else
+        {
+            currEnemy = enemies.Length - 1;
+        }
+    
+    }
 
     public void spawnAgain()
     {
-        GameObject e = Instantiate(enemy, spawnPoint.position,Quaternion.identity);
+        GameObject e = Instantiate(enemies[currEnemy], spawnPoint.position,Quaternion.identity);
         
     }
 }

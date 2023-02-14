@@ -27,7 +27,7 @@ public class TurretHolder : MonoBehaviour
         {
             if(GameObject.ReferenceEquals(hit.transform.gameObject, this.gameObject ))
             {
-                Debug.Log(hit.transform.name);
+                //Debug.Log(hit.transform.name);
                 cone.intensity = 100;
             }
             else
