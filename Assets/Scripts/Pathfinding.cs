@@ -15,7 +15,6 @@ public class Pathfinding : MonoBehaviour
 	List<Node> path;
 	public int gridMan = 1;
 
-
 	void Awake()
 	{
 		GameObject tmp = GameObject.FindGameObjectWithTag("pathfind"+ gridMan);
@@ -52,6 +51,9 @@ public class Pathfinding : MonoBehaviour
 		List<Node> openSet = new List<Node>();
 		HashSet<Node> closedSet = new HashSet<Node>();
 		openSet.Add(startNode);
+
+        
+
 		while (openSet.Count > 0)
 		{
 			Node node = openSet[0];
@@ -95,6 +97,8 @@ public class Pathfinding : MonoBehaviour
 		return null;
 	}
 	
+
+
 	List<Node> RetracePath(Node startNode, Node endNode)
 	{
 		path = new List<Node>();

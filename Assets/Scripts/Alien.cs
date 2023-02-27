@@ -8,39 +8,64 @@ public class Alien : MonoBehaviour
     public Pathfinding pf;
     public Transform target;
     GameLoop gm;
-    List<Node> path;
+    public List<Node> path,prevPath;
     Node curr;
     int index;
     public int health = 10;
     public int damageDealt = 10;
     public int attackDmg = 10;
     public float speed = 1;
-    public int debugTrue = 0;
     public int pathFinder = 1;
+    public int updatePath = 0;
+    public bool rush = false;
+    public bool isRushable = false;
+    private IEnumerator updatePathTimer;
 
     // Start is called before the first frame update
     void Start()
     {
+        
         gm = GameObject.FindGameObjectWithTag("aStar").GetComponent<GameLoop>();
         target = GameObject.FindGameObjectWithTag("target").GetComponent<Transform>();
         pf = GameObject.FindGameObjectWithTag("pathfind"+ pathFinder).GetComponent<Pathfinding>();
-        getPath();
+        //getPath();
+        prevPath = new List<Node>();
+        if (!rush)
+        {
+            getPath();
+            prevPath.Add(path[0]);
+            if (updatePath > 0)
+            {
+                StartCoroutine(updatePathCall(updatePath));
+            }
+        }
+       
         index = 0;
-        InvokeRepeating("getPath", 2.0f, 2.0f);
-        
+        //InvokeRepeating("getPath", 2.0f, 2.0f);
+     
     }
 
+    public IEnumerator updatePathCall(int time)
+    {
+        yield return new WaitForSeconds(time);
 
-    // Update is called once per frame
-    void FixedUpdate()
+        getPath();
+
+        StartCoroutine(updatePathCall(updatePath));
+    }
+
+        // Update is called once per frame
+        void FixedUpdate()
     {
         transform.LookAt(target);
 
         // Debug.Log("work");
         if (path != null && path.Count > 0 && path.Count > index)
         {
+            
             if (Vector3.Distance(transform.position, path[index].worldPosition) < 1f)
             {
+                prevPath.Add(path[index]);
                 index++;
             }
             if (path.Count > index)
@@ -57,9 +82,15 @@ public class Alien : MonoBehaviour
         //getPath();
         if (transform.position != null && target.position != null)
         {
-            if (Vector3.Distance(transform.position, target.position) < 2f)
+            if (Vector3.Distance(transform.position, target.position) < 3f)
             {
+                prevPath.Add(path[index]);
                 //damage here
+                if (isRushable)
+                {
+                    gm.successPath(prevPath, pathFinder);
+                }
+
                 gm.towerHit(attackDmg);
                 Destroy(this.gameObject);
             }
@@ -75,7 +106,7 @@ public class Alien : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider other)
     {
             if (other.gameObject.tag == "bullet")
             {
@@ -108,7 +139,7 @@ public class Alien : MonoBehaviour
            
     }
 
-    private void bigHit()
+    public void bigHit()
     {
         if (curr != null)
         {

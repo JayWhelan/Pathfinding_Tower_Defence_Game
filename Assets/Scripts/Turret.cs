@@ -33,7 +33,7 @@ public class Turret : MonoBehaviour
             targets.Add(go);
         }
         if(targets.Count > 0) target = enemies[0];
-        InvokeRepeating("refreshEnemies", 1.0f, 1.0f);
+        InvokeRepeating("refreshEnemies", 0.5f, 0.5f);
     }
 
     // Update is called once per frame
@@ -68,7 +68,7 @@ public class Turret : MonoBehaviour
                
 
                 //Debug.Log(angle);
-                if ((Vector3.Distance(transform.position, target.transform.position) > 10f) || (angle > 90))
+                if ((Vector3.Distance(transform.position, target.transform.position) > 12f) || (angle > 100))
                 {
                     targetDirection = Vector3.forward;
 

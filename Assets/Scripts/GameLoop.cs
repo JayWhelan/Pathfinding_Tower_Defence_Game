@@ -11,19 +11,32 @@ public class GameLoop : MonoBehaviour
     public int level = 0;
     public spawnManager spawnMan;
     private IEnumerator coroutineWait;
+    bool spawn1Check, spawn2Check;
+    private bool isRushable = true;
 
     // Start is called before the first frame update
     void Start()
     {
         healthBar.setMaxHealth(currHealth);
-        StartCoroutine(waitStart(4));
+        StartCoroutine(waitStart(3));
+        spawn1Check = false;
+        spawn2Check = false;
     }
 
-    public void levelComplete()
+    public void levelComplete(int spawnerID)
     {
-        level++;
-        
-        StartCoroutine(waitLevel(4));
+        if (spawnerID == 1) spawn1Check = true;
+        if (spawnerID == 2) spawn2Check = true;
+
+        if(spawn2Check && spawn1Check)
+        {
+            level++;
+            //Debug.Log("Level Complete starting next level: " + level);
+            StartCoroutine(waitLevel(4));
+
+            spawn1Check = false;
+            spawn2Check = false;
+        }
     }
 
     public IEnumerator waitLevel(int pause)
@@ -34,7 +47,6 @@ public class GameLoop : MonoBehaviour
             yield return new WaitForSeconds(pause);
             enemiesLeft = GameObject.FindGameObjectsWithTag("alien").Length;
         }
-        Debug.Log("KILLED ALL");
         yield return new WaitForSeconds(pause);
         spawnMan.spawnLevel(level);
 
@@ -48,6 +60,23 @@ public class GameLoop : MonoBehaviour
 
     }
 
+
+    public void successPath(List<Node> path, int pathFinderID)
+    {
+        if (isRushable)
+        {
+            spawnMan.spawnRush(path, pathFinderID);
+            StartCoroutine(waitRush(5));
+        }
+    }
+
+    public IEnumerator waitRush(int pause)
+    {
+        isRushable = false;
+        yield return new WaitForSeconds(pause);
+
+        isRushable = true;
+    }
 
     public void towerHit(int dmg)
     {

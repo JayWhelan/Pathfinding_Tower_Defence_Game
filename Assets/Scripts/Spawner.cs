@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour
     public GameObject enemy;
     public Transform spawnPoint;
     public GameLoop gameLoop;
+    public int spawnNumber;
     
 
     void Start()
@@ -18,17 +19,17 @@ public class Spawner : MonoBehaviour
         gameLoop = GameObject.FindGameObjectWithTag("aStar").GetComponent<GameLoop>();
     }
 
-    public IEnumerator spawnWave(int numEnemies, int pause)
+    
+    public IEnumerator spawnWave(int numEnemies, float pause)
     {
-        //Debug.Log("Spawn");
         for (int i = 0; i < numEnemies; i++)
         {
             spawnAgain();
             yield return new WaitForSeconds(pause);
 
         }
-        gameLoop.levelComplete();
-
+        gameLoop.levelComplete(spawnNumber);
+        
     }
 
     public IEnumerator spawnWaveRec(int numEnemies, int pause, int numWaves, int pauseWave)
@@ -52,16 +53,30 @@ public class Spawner : MonoBehaviour
         {
             currEnemy++;
         }
-        else
+    }
+
+    public IEnumerator spawnRush(List<Node> setPath, int numEnemies, float pause)
+    {
+        for (int i = 0; i < numEnemies; i++)
         {
-            currEnemy = enemies.Length - 1;
-        }
-    
+            spawnRushAgain(setPath);
+            yield return new WaitForSeconds(pause);
+
+        }    
+    }
+
+    public void spawnRushAgain(List<Node> setPath)
+    {
+        GameObject e = Instantiate(enemies[currEnemy], spawnPoint.position, Quaternion.identity);
+        Alien tmp = e.GetComponent<Alien>();
+        tmp.path = setPath;
+        tmp.rush = true;
     }
 
     public void spawnAgain()
     {
         GameObject e = Instantiate(enemies[currEnemy], spawnPoint.position,Quaternion.identity);
-        
+        Alien tmp = e.GetComponent<Alien>();
+        tmp.rush = false;
     }
 }
