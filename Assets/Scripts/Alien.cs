@@ -132,6 +132,7 @@ public class Alien : MonoBehaviour
                     bigHit();
                     //Debug.Log("HITD");
                 }
+                gm.enemyDeath();
                 Destroy(this.gameObject);
                 this.gameObject.SetActive(false);
             }

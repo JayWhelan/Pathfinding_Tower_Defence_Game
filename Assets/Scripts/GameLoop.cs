@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameLoop : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class GameLoop : MonoBehaviour
     private IEnumerator coroutineWait;
     bool spawn1Check, spawn2Check;
     private bool isRushable = true;
-
+    public int deadNum = 0;
+    public TMP_Text gameOverText, gameOverStats;
+    public GameObject pan;
+    private int enemyHits = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +25,9 @@ public class GameLoop : MonoBehaviour
         StartCoroutine(waitStart(3));
         spawn1Check = false;
         spawn2Check = false;
+        pan.SetActive(false);
+        gameOverText.text = " ";
+        gameOverStats.text = " ";
     }
 
     public void levelComplete(int spawnerID)
@@ -28,7 +35,7 @@ public class GameLoop : MonoBehaviour
         if (spawnerID == 1) spawn1Check = true;
         if (spawnerID == 2) spawn2Check = true;
 
-        if(spawn2Check && spawn1Check)
+        if (spawn2Check && spawn1Check)
         {
             level++;
             //Debug.Log("Level Complete starting next level: " + level);
@@ -63,10 +70,11 @@ public class GameLoop : MonoBehaviour
 
     public void successPath(List<Node> path, int pathFinderID)
     {
+
         if (isRushable)
         {
             spawnMan.spawnRush(path, pathFinderID);
-            StartCoroutine(waitRush(5));
+            StartCoroutine(waitRush(6));
         }
     }
 
@@ -82,5 +90,24 @@ public class GameLoop : MonoBehaviour
     {
         currHealth -= dmg;
         healthBar.setHealth(currHealth);
+        enemyHits++;
+
+        if (currHealth <= 0)
+        {
+            endGame();
+        }
+    }
+
+    public void enemyDeath()
+    {
+        deadNum++;
+    }
+
+    private void endGame()
+    {
+        Time.timeScale = 0f;
+        pan.SetActive(true);
+        gameOverText.text = "GAME OVER";
+        gameOverStats.text = "You Killed " + deadNum.ToString() + " Enemies!\n"+enemyHits.ToString()+ " Enemies reached your tower.";
     }
 }

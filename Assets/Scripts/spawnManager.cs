@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System;
 
 public class spawnManager : MonoBehaviour
 {
@@ -10,15 +13,22 @@ public class spawnManager : MonoBehaviour
     float damageTaken;
     private IEnumerator coroutine1, coroutine2, coroutine3;
     int rushSpawnAmount = 3;
+    public TMP_Text roundText;
 
     // Start is called before the first frame update
     void Start()
     {
         //coroutine1 = spawn1.spawnWave(5, 3);
         //StartCoroutine(coroutine1);
-
-
     }
+
+    void Update()
+    {
+       // float t = Mathf.PingPong(Time.time, 5f) / 5;
+       
+    }
+
+  
 
     public void spawnRush(List<Node> path, int pathFinder)
     {
@@ -34,9 +44,12 @@ public class spawnManager : MonoBehaviour
 
     public void spawnLevel(int level)
     {
+        int tmp = level + 1;
+        roundText.text = "Round: " + tmp.ToString();
         switch (level)
         {
             case 0:
+                
                 coroutine1 = spawn1.spawnWave(5, 1);
                 coroutine2 = spawn2.spawnWave(5, 1);
                 break;
@@ -71,8 +84,20 @@ public class spawnManager : MonoBehaviour
                 coroutine2 = spawn2.spawnWave(27, (float)1.4);
                 break;
             case 7:
-                coroutine1 = spawn1.spawnWave(31, 1);
-                coroutine2 = spawn2.spawnWave(31, 1);
+                coroutine1 = spawn1.spawnWave(31, (float)1.6);
+                coroutine2 = spawn2.spawnWave(31, (float)1.6);
+                break;
+            case 8:
+                coroutine1 = spawn1.spawnWave(34, (float)1.4);
+                coroutine2 = spawn2.spawnWave(34, (float)1.4);
+                break;
+            case 9:
+                coroutine1 = spawn1.spawnWave(39, (float)1.2);
+                coroutine2 = spawn2.spawnWave(39, (float)1.2);
+                break;
+            case 10:
+                coroutine1 = spawn1.spawnWave(44, 1);
+                coroutine2 = spawn2.spawnWave(44, 1);
                 break;
 
         }

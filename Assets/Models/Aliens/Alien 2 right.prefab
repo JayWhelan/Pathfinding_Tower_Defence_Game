@@ -159,10 +159,11 @@ MonoBehaviour:
   health: 12
   damageDealt: 12
   attackDmg: 12
-  speed: 1.1
+  speed: 1.05
   pathFinder: 2
   updatePath: 0
   rush: 0
+  isRushable: 0
 --- !u!54 &3692460508994343294
 Rigidbody:
   m_ObjectHideFlags: 0
