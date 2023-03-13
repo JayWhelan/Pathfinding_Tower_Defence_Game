@@ -76,6 +76,13 @@ public class GameLoop : MonoBehaviour
             spawnMan.spawnRush(path, pathFinderID);
             StartCoroutine(waitRush(6));
         }
+        if (level > 4)
+        {
+            foreach(Node n in path)
+            {
+                n.decreaseCost();
+            }
+        }
     }
 
     public IEnumerator waitRush(int pause)

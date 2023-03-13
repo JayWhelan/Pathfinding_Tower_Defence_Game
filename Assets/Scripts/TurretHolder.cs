@@ -48,13 +48,14 @@ public class TurretHolder : MonoBehaviour
                 {
                     thisTurret = Instantiate(Turrets[1], spawnPoint.transform.position, spawnPoint.transform.rotation);
                     TurretActive = true;
+                    TurrManager.turretUpdate();
                 }
             }
 
         }
         else
         {
-                
+            TurrManager.turretUpdateRemoved();
             Destroy(thisTurret);
             thisTurret = null;
             TurretActive = false;

@@ -57,5 +57,9 @@ public class Node
 		return jCost;
     }
 
+	public void decreaseCost()
+    {
+		jCost = jCost / 2;
+    }
 
 }
