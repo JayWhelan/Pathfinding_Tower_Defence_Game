@@ -317,6 +317,7 @@
 "Assets/Scripts/GameLoop.cs"
 "Assets/Scripts/GridManager.cs"
 "Assets/Scripts/healthBar.cs"
+"Assets/Scripts/menuScript.cs"
 "Assets/Scripts/mouseEvents.cs"
 "Assets/Scripts/Node.cs"
 "Assets/Scripts/OrbitControl.cs"

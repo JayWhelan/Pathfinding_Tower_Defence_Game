@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     public Vector3 startPos;
 
     public float damage = 5;
-    public int travelDistance = 5;
+    public int travelDistance = 8;
 
 
     void Start()
