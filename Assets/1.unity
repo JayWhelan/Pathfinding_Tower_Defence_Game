@@ -2303,7 +2303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 1443635214}
-  currHealth: 300
+  currHealth: 400
   level: 0
   spawnMan: {fileID: 105692094}
   deadNum: 0
@@ -11395,6 +11395,7 @@ MonoBehaviour:
   - {fileID: 3692460508994343284, guid: 2483025442fbcd8439123e3b57833477, type: 3}
   - {fileID: 3692460508994343284, guid: 6517fb6dca6ebf940adbb838db41756e, type: 3}
   - {fileID: 3692460508994343284, guid: b514ec759579bee49a103785d0b0dc38, type: 3}
+  - {fileID: 3692460508994343284, guid: ae78241244a45dd4186f379d9eda8152, type: 3}
   currEnemy: 0
   enemy: {fileID: 3692460508994343284, guid: d84a4a860b5f29b4ab693179f16a3a90, type: 3}
   spawnPoint: {fileID: 483892975}
@@ -39640,6 +39641,7 @@ MonoBehaviour:
   - {fileID: 3692460508994343284, guid: 10120c8076c67ae448e50f9ffb8cbbb9, type: 3}
   - {fileID: 3692460508994343284, guid: 669b6c41cdc89724194e09f1d3af5d67, type: 3}
   - {fileID: 3692460508994343284, guid: bbc2eac973b7dd14a91584dfd91da332, type: 3}
+  - {fileID: 3692460508994343284, guid: d0c93e55ca9957843a41ebb00d8804af, type: 3}
   currEnemy: 0
   enemy: {fileID: 3692460508994343284, guid: d84a4a860b5f29b4ab693179f16a3a90, type: 3}
   spawnPoint: {fileID: 260102883}

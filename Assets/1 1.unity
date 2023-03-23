@@ -2253,6 +2253,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turrets: []
   maxTurrets: 3
+  turr1E: {fileID: 0}
+  turr1F: {fileID: 0}
+  turr2E: {fileID: 0}
+  turr2F: {fileID: 0}
+  turr3E: {fileID: 0}
+  turr3F: {fileID: 0}
 --- !u!114 &105692094
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -80,24 +80,26 @@ public class spawnManager : MonoBehaviour
             case 6:
                 spawn1.increaseEnemy();
                 spawn2.increaseEnemy();
-                coroutine1 = spawn1.spawnWave(27, (float)1.4);
-                coroutine2 = spawn2.spawnWave(27, (float)1.4);
+                coroutine1 = spawn1.spawnWave(27, (float)1.8);
+                coroutine2 = spawn2.spawnWave(27, (float)1.8);
                 break;
             case 7:
                 coroutine1 = spawn1.spawnWave(31, (float)1.6);
                 coroutine2 = spawn2.spawnWave(31, (float)1.6);
                 break;
             case 8:
+                spawn1.increaseEnemy();
+                spawn2.increaseEnemy();
                 coroutine1 = spawn1.spawnWave(34, (float)1.4);
                 coroutine2 = spawn2.spawnWave(34, (float)1.4);
                 break;
             case 9:
-                coroutine1 = spawn1.spawnWave(39, (float)1.2);
-                coroutine2 = spawn2.spawnWave(39, (float)1.2);
+                coroutine1 = spawn1.spawnWave(35, (float)1.3);
+                coroutine2 = spawn2.spawnWave(35, (float)1.3);
                 break;
             case 10:
-                coroutine1 = spawn1.spawnWave(44, 1);
-                coroutine2 = spawn2.spawnWave(44, 1);
+                coroutine1 = spawn1.spawnWave(40, (float)1.2);
+                coroutine2 = spawn2.spawnWave(40, (float)1.2);
                 break;
 
         }

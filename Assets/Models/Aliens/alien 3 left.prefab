@@ -607,7 +607,7 @@ MonoBehaviour:
   target: {fileID: 0}
   health: 15
   damageDealt: 15
-  attackDmg: 12
+  attackDmg: 13
   speed: 1.1
   pathFinder: 1
   updatePath: 5
